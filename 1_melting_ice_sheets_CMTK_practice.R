@@ -40,7 +40,62 @@ grn_ice_loss_with_NA = grn_ice_loss_with_NA[order(grn_ice_loss_with_NA$decimal_d
 plot(mass_gt ~ decimal_date, data=ant_ice_loss_with_NA, ylab="Antarctica Mass Loss (Gt)", type='l', ylim=range(grn_ice_loss_with_NA$mass_Gt, na.rm=TRUE)) +
   lines(mass_Gt ~ decimal_date, data=grn_ice_loss_with_NA, type='l', col='red') 
 
+## Plot the uncertainty with the ice loss data 
+
 head(ant_ice_loss_with_NA)
 plot(mass_gt ~ decimal_date, data=ant_ice_loss_with_NA, ylab="Antarctica Mass Loss (Gt)", xlab="Year", type='l') +
   lines((mass_gt+2*sigma_Gt) ~ decimal_date, data=ant_ice_loss_with_NA, type='l', lty='dashed') +
+  lines((mass_gt+2*sigma_Gt) ~ decimal_date, data=ant_ice_loss_with_NA, type='l', lty='dashed') 
+
+head(ant_ice_loss_with_NA)
+
+pdf('figures/ice_mass_trends.pdf', width=7, height=5)
+plot(mass_gt ~ decimal_date, data=ant_ice_loss_with_NA, ylab="Antarctica Mass Loss (Gt)", xlab="Year", type='l', ylim=range(grn_ice_loss_with_NA$mass_Gt, na.rm = T)) +
+  lines((mass_gt+2*sigma_Gt) ~ decimal_date, data=ant_ice_loss_with_NA, type='l', lty='dashed') +
   lines((mass_gt-2*sigma_Gt) ~ decimal_date, data=ant_ice_loss_with_NA, type='l', lty='dashed') 
+## add greenland data 
+head(ant_ice_loss_with_NA)
+lines(mass_Gt ~ decimal_date, data=grn_ice_loss_with_NA, ylab="Greenland Mass Loss (Gt)", xlab="Year", type='l', col="red") +
+  lines((mass_Gt+2*sigma_Gt) ~ decimal_date, data=grn_ice_loss_with_NA, type='l', lty='dashed', col="red") +
+  lines((mass_Gt-2*sigma_Gt) ~ decimal_date, data=grn_ice_loss_with_NA, type='l', lty='dashed', col="red") 
+dev.off()
+
+
+
+
+
+
+
+
+
+## bar plot showing rate of ice mass loss 
+
+min(ant_ice_loss_with_NA, na.rm = T)
+min(grn_ice_loss_with_NA, na.rm = T)
+barplot(height=c(min(ant_ice_loss_with_NA, na.rm = T), min(grn_ice_loss_with_NA, na.rm = T)), 
+        names.arg = c("Antarctica", "Greenland"))
+barplot(height=-1*c(min(ant_ice_loss_with_NA, na.rm = T), min(grn_ice_loss_with_NA, na.rm = T)), 
+        names.arg = c("Antarctica", "Greenland")) ##flips bar plot 
+
+
+##exercise 
+
+##ant
+min(ant_ice_loss_with_NA$decimal_date, na.rm = T)
+max(ant_ice_loss_with_NA$decimal_date, na.rm = T)
+
+min(ant_ice_loss_with_NA$mass_gt, na.rm = T)
+max(ant_ice_loss_with_NA$mass_gt, na.rm = T)
+
+max(ant_ice_loss_with_NA$decimal_date, na.rm = T)-min(ant_ice_loss_with_NA$decimal_date, na.rm = T)
+max(ant_ice_loss_with_NA$mass_gt, na.rm = T)-min(ant_ice_loss_with_NA$mass_gt, na.rm = T)
+
+(max(ant_ice_loss_with_NA$mass_gt, na.rm = T)-min(ant_ice_loss_with_NA$mass_gt, na.rm = T))/(max(ant_ice_loss_with_NA$decimal_date, na.rm = T)-min(ant_ice_loss_with_NA$decimal_date, na.rm = T))
+
+# grn
+
+(max(grn_ice_loss_with_NA$mass_Gt, na.rm = T)-min(grn_ice_loss_with_NA$mass_Gt, na.rm = T))/(max(grn_ice_loss_with_NA$decimal_date, na.rm = T)-min(grn_ice_loss_with_NA$decimal_date, na.rm = T))
+
+##above is wrong 
+
+
